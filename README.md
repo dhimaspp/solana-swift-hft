@@ -17,7 +17,7 @@ This project aims to build **Trading Extensions** on top of the library, transfo
 
 In the current Solana network environment:
 
-*   **Transaction Failure**: Transactions without dynamic Priority Fees have a failure rate of >70% during peak hours. iOS developers currently have to calculate `ComputeUnitPrice` manually or hardcode it, which is inefficient.
+*   **Transaction Failure**: Refers to data ['Non-Voting Transaction Drop Rate'](https://cryptorank.io/news/feed/2a7d5-solanas-growing-pains-why-75-of-non-vote-transactions-failed) during periods of high network load. Based on data from Dune Analytics and Helius reports regarding QUIC implementation, transactions without dynamic Priority Fees have a failure rate of >70% during peak hours. iOS developers currently have to calculate `ComputeUnitPrice` manually or hardcode it, which is inefficient.
 *   **MEV Vulnerability**: Large trading transactions sent to Public RPCs are vulnerable to **Sandwich Attacks** by MEV bots, causing slippage for users.
 *   **No Jito Support on iOS**: There is no native Swift library that supports sending transactions via **Jito Block Engine** (Private Transaction) natively.
 *   **Outdated Tooling**: The `p2p-org` repository was last updated 9 months ago and does not reflect modern trading best practices.
