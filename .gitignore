@@ -43,3 +43,8 @@ OrcaSwapTransitiveTests-Secret.swift
 
 .build
 .idea
+
+# AI Assistant
+.agent/
+openspec/
+AGENTS.md

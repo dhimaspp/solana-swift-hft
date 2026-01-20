@@ -1,4 +1,70 @@
-# SolanaSwift
+# Solana Swift Trading Extensions (High Frequency Trading Kit for iOS)
+
+| Metadata | Details |
+| :--- | :--- |
+| **Project Name** | Solana Swift Trading Extensions (HFT Kit for iOS) |
+| **Version** | 1.0 (Draft / Proposal Phase) |
+| **Base Repository** | `p2p-org/solana-swift` |
+| **Target Platform** | iOS 16+ (Swift 5.10+) |
+
+## 1. Executive Summary
+
+The open-source library `p2p-org/solana-swift` is currently the gold standard for Solana wallet development on iOS. However, it lags in accommodating recent Solana network infrastructure changes (2025-2026), specifically regarding **Network Congestion**, **Priority Fees**, and **MEV Protection**.
+
+This project aims to build **Trading Extensions** on top of the library, transforming it into the first **High-Frequency Trading (HFT) Kit** for iOS. This solution will enable developers to build high-reliability mobile trading applications that are fast and secure against sandwich attacks (MEV).
+
+## 2. Problem Statement
+
+In the current Solana network environment:
+
+*   **Transaction Failure**: Transactions without dynamic Priority Fees have a failure rate of >70% during peak hours. iOS developers currently have to calculate `ComputeUnitPrice` manually or hardcode it, which is inefficient.
+*   **MEV Vulnerability**: Large trading transactions sent to Public RPCs are vulnerable to **Sandwich Attacks** by MEV bots, causing slippage for users.
+*   **No Jito Support on iOS**: There is no native Swift library that supports sending transactions via **Jito Block Engine** (Private Transaction) natively.
+*   **Outdated Tooling**: The `p2p-org` repository was last updated 9 months ago and does not reflect modern trading best practices.
+
+## 3. Goals & Objectives
+
+*   **Modernization**: Upgrade the transaction capabilities of the `p2p-org` library to be relevant for 2026 network conditions.
+*   **Reliability**: Increase Transaction Landing Rate to **99%** using **Dynamic Priority Fees**.
+*   **Security**: Provide **Anti-MEV protection** via native **Jito Bundle** integration.
+*   **Grant Acquisition**: Meet technical criteria for Superteam Indonesia funding in the Developer Tooling category.
+
+## 4. Technical Scope & Features
+
+### 4.1. Feature 1: Dynamic Priority Fee Engine
+A smart wrapper that automatically injects additional fee instructions before the transaction is signed.
+
+**Requirements:**
+*   **Real-time Fee Fetching**: Fetch data from Helius/Triton APIs.
+*   **Urgency Levels**: Calculate fees based on urgency:
+    *   `Medium` (p50)
+    *   `High` (p75)
+    *   `Turbo` (p99)
+*   **Compute Unit Estimation**: Simulate transactions to determine exact CU usage before applying fees.
+*   **Auto-Injection**: Automatically inject `ComputeBudgetProgram.setComputeUnitPrice` and `setComputeUnitLimit` instructions into the Transaction Builder.
+*   **Account-Specific Fees**: Support `getRecentPrioritizationFees` for writable accounts to optimize costs.
+
+## 5. Roadmap & Timeline (3 Weeks)
+
+### Phase 1: Foundation & Fees (Week 1)
+*   [x] Fork repository & setup environment.
+*   [ ] Audit `TransactionManager` code.
+*   [ ] Implement `DynamicFeeService` with Helius/Triton API integration.
+*   [ ] Unit Tests for `ComputeBudgetProgram` instruction injection.
+
+### Phase 2: Jito & MEV Protection (Week 2)
+*   [ ] Implement JSON-RPC client for Jito Block Engine.
+*   [ ] Implement **Tipping Logic** (transfer SOL to random Jito Tip Account).
+*   [ ] Implement **Bundle Status Polling**.
+*   [ ] Mainnet testing (small amounts).
+
+### Phase 3: Demo App & Proposal (Week 3)
+*   [ ] Build "Scalping Terminal" UI.
+*   [ ] Integrate toggles for "Turbo" and "Ninja" modes.
+*   [ ] Record demo video (Target: <2s landing time).
+*   [ ] Finalize and submit Superteam Earn Grant Proposal.
+
+# SolanaSwift (Legacy README)
 
 Solana-blockchain client, written in pure swift.
 
